@@ -6,6 +6,11 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController2D controller;
     public float runSpeed = 40f;
 
+    // Sound
+    public AudioSource walkingSound;
+    public AudioSource runningSound;
+
+    // Movement
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
@@ -34,8 +39,22 @@ public class PlayerMovement : MonoBehaviour
             // Crouch input
             crouch = Keyboard.current.sKey.isPressed || Keyboard.current.leftCtrlKey.isPressed;
         }
+
+        playSound();
     }
 
+    void playSound()
+    {
+        bool playerIsWalking = Keyboard.current.aKey.isPressed || Keyboard.current.dKey.isPressed;
+        if (controller.isGrounded() && playerIsWalking)
+        {
+            walkingSound.enabled = true;
+        }
+        else
+        {
+            walkingSound.enabled = false;
+        }
+    }
 
     void FixedUpdate()
     {
