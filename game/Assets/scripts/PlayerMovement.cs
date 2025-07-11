@@ -3,16 +3,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public CharacterController2D controller;
     public float runSpeed = 40f;
 
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
+    private PlayerStats playerStats;
+
+    void Start()
+    {
+        playerStats = GetComponent<PlayerStats>();
+        if (playerStats == null)
+        {
+            Debug.LogError("PlayerMovement requires PlayerStats component!");
+        }
+    }
 
     void Update()
     {
-        // Get movement input
+        // Only allow movement if player is alive
+        if (playerStats != null && playerStats.IsAlive())
+        {
+            HandleInput();
+        }
+    }
+
+    void HandleInput()
+    {
         if (Keyboard.current != null)
         {
             float horizontal = 0f;
@@ -23,10 +42,6 @@ public class PlayerMovement : MonoBehaviour
 
             horizontalMove = horizontal * runSpeed;
 
-            // Debug line - remove this after testing
-            if (horizontal != 0)
-                Debug.Log($"Input detected: {horizontal}, horizontalMove: {horizontalMove}");
-
             // Jump input
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
                 jump = true;
@@ -36,10 +51,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-        jump = false;
+        // Only move if player is alive
+        if (playerStats != null && playerStats.IsAlive())
+        {
+            controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+            jump = false;
+        }
     }
 }
