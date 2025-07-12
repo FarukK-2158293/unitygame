@@ -7,6 +7,10 @@ public class PlayerStats : MonoBehaviour
     public int maxHealth = 3;
     public float immunityDuration = 2f;
 
+    [Header("Hit Effects")]
+    public Color hitColor = Color.red;
+    public float hitFlashDuration = 0.2f;
+
     [Header("Status Effects")]
     public bool canTakeDamage = true;
     public bool isAlive = true;
@@ -23,6 +27,7 @@ public class PlayerStats : MonoBehaviour
     private float immunityTimer = 0f;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
+    private bool isFlashingHit = false;
 
     public static PlayerStats Instance { get; private set; }
 
@@ -63,8 +68,8 @@ public class PlayerStats : MonoBehaviour
         {
             immunityTimer -= Time.deltaTime;
 
-            // Visual feedback - blink during immunity
-            if (spriteRenderer != null)
+            // Visual feedback - blink during immunity (but not during hit flash)
+            if (spriteRenderer != null && !isFlashingHit)
             {
                 float alpha = Mathf.PingPong(Time.time * 10f, 1f);
                 Color color = originalColor;
@@ -85,6 +90,10 @@ public class PlayerStats : MonoBehaviour
             return false;
 
         currentHealth = Mathf.Max(0, currentHealth - damageAmount);
+
+        // Flash red when hit
+        StartCoroutine(FlashHitEffect());
+
         StartImmunity();
 
         OnHealthChanged?.Invoke(currentHealth);
@@ -98,6 +107,27 @@ public class PlayerStats : MonoBehaviour
         }
 
         return true; // Damage was successfully applied
+    }
+
+    System.Collections.IEnumerator FlashHitEffect()
+    {
+        if (spriteRenderer == null) yield break;
+
+        isFlashingHit = true;
+
+        // Flash to hit color
+        spriteRenderer.color = hitColor;
+
+        // Wait for flash duration
+        yield return new WaitForSeconds(hitFlashDuration);
+
+        // Return to original color (or continue with immunity blinking)
+        if (!isImmune)
+        {
+            spriteRenderer.color = originalColor;
+        }
+
+        isFlashingHit = false;
     }
 
     public void Heal(int healAmount = 1)
@@ -128,8 +158,8 @@ public class PlayerStats : MonoBehaviour
     {
         isImmune = false;
 
-        // Restore full opacity
-        if (spriteRenderer != null)
+        // Restore full opacity and original color
+        if (spriteRenderer != null && !isFlashingHit)
         {
             spriteRenderer.color = originalColor;
         }
