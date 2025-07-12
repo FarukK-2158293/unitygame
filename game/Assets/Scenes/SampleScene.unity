@@ -1771,6 +1771,7 @@ GameObject:
   - component: {fileID: 2070239257}
   - component: {fileID: 2070239256}
   - component: {fileID: 2070239258}
+  - component: {fileID: 2070239259}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -2012,6 +2013,20 @@ MonoBehaviour:
   OnImmunityEnded:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2070239259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070239250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06bdd6a7703d66a4b8f973cf66c1b1f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPoint: {fileID: 185828956}
+  fallThreshold: -8.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
