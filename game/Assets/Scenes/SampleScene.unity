@@ -583,7 +583,7 @@ Transform:
   m_GameObject: {fileID: 203636746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.321, z: 0}
+  m_LocalPosition: {x: 0, y: 0.325, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1273,7 +1273,7 @@ Transform:
   m_GameObject: {fileID: 1812727954}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.347, z: 0}
+  m_LocalPosition: {x: 0, y: -0.372, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1740,6 +1740,7 @@ GameObject:
   - component: {fileID: 2070239257}
   - component: {fileID: 2070239256}
   - component: {fileID: 2070239258}
+  - component: {fileID: 2070239259}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -1757,7 +1758,7 @@ Animator:
   m_GameObject: {fileID: 2070239250}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 50b502ae23e533b48b2a7124ef518257, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5b07e7bc3a46f8c4599dd309b727010d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1813,7 +1814,7 @@ SpriteRenderer:
   m_SortingLayerID: 497681771
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4723107735738678597, guid: 9589ef1ffa6e9a844ba992913a683205, type: 3}
+  m_Sprite: {fileID: -181828907702267046, guid: 288df4e5e9949ad459a11a2bcccbab1f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1851,7 +1852,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5667c6d7ecae2ca4494869fd2745060d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1875,17 +1876,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0049616694, y: -0.022197545}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.31, y: 0.7}
+    oldSize: {x: 0.4375, y: 0.7291667}
     newSize: {x: 0.31, y: 0.7}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.31, y: 0.7}
+  m_Size: {x: 0.30056584, y: 0.6947025}
   m_EdgeRadius: 0
 --- !u!50 &2070239255
 Rigidbody2D:
@@ -1912,7 +1913,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &2070239256
 MonoBehaviour:
@@ -1971,7 +1972,19 @@ MonoBehaviour:
       m_Calls: []
   OnPlayerDied:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2070239251}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: IsDead
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -1981,6 +1994,25 @@ MonoBehaviour:
   OnImmunityEnded:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2070239259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070239250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df94aca3c19681944afa8189f58af460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 10
+  attackRange: 1.5
+  attackCooldown: 0.6
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  attackPoint: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

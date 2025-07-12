@@ -18,6 +18,11 @@ public class CharacterController2D : MonoBehaviour
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
     private Vector3 velocity = Vector3.zero;
 
+    public bool getGrounder()
+    {
+        return m_Grounded;
+    }
+
     private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();

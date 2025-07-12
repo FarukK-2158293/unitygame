@@ -139,6 +139,18 @@ public class PlayerStats : MonoBehaviour
 
     void Die()
     {
+        // Disable all colliders when player dies
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D col in colliders)
+        {
+            // Only modify BoxCollider2D types
+            if (col is BoxCollider2D boxCollider)
+            {
+                boxCollider.size = new Vector2(0.3f, 0.3f);
+                boxCollider.offset = new Vector2(0.005f, 0.17f);
+            }
+        }
+
         isAlive = false;
         canTakeDamage = false;
         OnPlayerDied?.Invoke();
