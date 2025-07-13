@@ -15,7 +15,7 @@ public class FloatingCollectable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float  newY = startPos.y + Mathf.Sin( Time.time * floatFrequency) + floatAmplitude;
+        float  newY = startPos.y + Mathf.Sin( Time.time * floatFrequency) * floatAmplitude;
         transform.position = new Vector3(startPos.x, newY, startPos.z);
     }
 }
