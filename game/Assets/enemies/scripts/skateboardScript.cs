@@ -70,17 +70,21 @@ public class skateboardScript : MonoBehaviour
     {
         if (player == null || rb == null) return;
 
+        // Temporarily unfreeze movement
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        
         Vector2 direction = (player.transform.position - transform.position).normalized;
         direction.y = 0f;
         direction.Normalize();
 
-        rb.linearVelocity = Vector2.zero; // Corrected from linearVelocity
+        rb.linearVelocity = Vector2.zero;
         rb.AddForce(direction * launchForce, ForceMode2D.Impulse);
 
         lastLaunchTime = Time.time;
 
         Debug.Log("Monster launched horizontally towards player!");
     }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
