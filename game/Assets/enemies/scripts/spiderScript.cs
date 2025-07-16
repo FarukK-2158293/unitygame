@@ -3,7 +3,8 @@ using UnityEngine;
 public class spiderScript : MonoBehaviour
 {
     [Header("Detection Settings")]
-    public float detectionRange = 3f;
+    public float detectionRange = 1f;
+    public float horizontalDetectionDistance = 0.5f; // New: horizontal detection distance
 
     [Header("Drop Settings")]
     public float dropForce = 10f;
@@ -19,7 +20,7 @@ public class spiderScript : MonoBehaviour
     private Color originalColor;
     private bool hasDropped = false;
     private bool hasDamaged = false;
-    private LayerMask defaultLayerMask = 1 << 0; // Default layer (layer 0)
+    private Transform player;
 
     void Start()
     {
@@ -38,15 +39,24 @@ public class spiderScript : MonoBehaviour
 
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
+
+        // Find the player GameObject
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
     }
 
     void Update()
     {
-        if (hasDropped || rb == null) return;
+        if (hasDropped || rb == null || player == null) return;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, detectionRange, defaultLayerMask);
+        // Check horizontal distance to player
+        float horizontalDistance = Mathf.Abs(transform.position.x - player.position.x);
 
-        if (hit.collider != null && hit.collider.CompareTag("Player"))
+        // Drop if player is within horizontal range and below the spider
+        if (horizontalDistance <= horizontalDetectionDistance)
         {
             DropOnPlayer();
         }
@@ -96,9 +106,4 @@ public class spiderScript : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * detectionRange);
-    }
 }
