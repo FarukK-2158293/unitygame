@@ -119,37 +119,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boomboxAttack14_0
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 37
-        width: 7
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 67de42ab100ecb780800000000000000
-      internalID: -8665805284945105546
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: boomboxAttack14_1
       rect:
         serializedVersion: 2
-        x: 75
+        x: 2
         y: 14
-        width: 43
+        width: 188
         height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,33 +140,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: boomboxAttack14_2
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 39
-        width: 8
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bbcdd1ddc247110a0800000000000000
-      internalID: -6912616216999895877
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e4c2fbc85c1dc324a9ab38749e641967
     internalID: 0
     vertices: []
     indices: 
