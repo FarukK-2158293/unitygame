@@ -13,6 +13,7 @@ public class skateboardScript : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
 
+    private int damageAmount = 1;
     private GameObject player;
     private Rigidbody2D rb;
     private float lastLaunchTime = 0f;
@@ -90,8 +91,15 @@ public class skateboardScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Monster hit the player and will be destroyed!");
-            Destroy(gameObject); // Destroy this monster
+            PlayerStats stats = collision.collider.GetComponent<PlayerStats>();
+            if (stats != null)
+            {
+                bool damageApplied = stats.TakeDamage(damageAmount);
+                if (damageApplied)
+                {
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 
