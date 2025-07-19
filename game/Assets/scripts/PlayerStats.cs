@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,6 +29,13 @@ public class PlayerStats : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private bool isFlashingHit = false;
+
+    // Cassette buffs:
+    private bool isHealingBuff = false;
+    private bool isSpeedBuff = false;
+    private bool isJumpBuff = false;
+    private Coroutine appliedBuff;
+    
 
     public static PlayerStats Instance { get; private set; }
 
@@ -195,6 +203,35 @@ public class PlayerStats : MonoBehaviour
         EndImmunity();
         OnHealthChanged?.Invoke(currentHealth);
         Debug.Log("Player revived!");
+    }
+
+    public void StartRegen(int amount, float interval)
+    {
+        resetBuffs();
+
+        isHealingBuff = true;
+        if (appliedBuff == null)
+            appliedBuff = StartCoroutine(RegenarateLives(amount, interval));
+    }
+
+    private void resetBuffs()
+    {
+        isHealingBuff = false;
+        isSpeedBuff = false;
+        isJumpBuff = false;
+    }
+
+    private IEnumerator RegenarateLives(int amount, float interval)
+    {
+        while (currentHealth <= maxHealth && isHealingBuff)
+        {
+            Heal(amount);
+            yield return new WaitForSeconds(interval);
+        }
+
+
+        //  Free up buff coroutine
+        appliedBuff = null;
     }
 
     // Getters
